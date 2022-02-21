@@ -4,7 +4,9 @@
 #define true 1
 #define false 0
 #define SizeOfREGISTER 156
+#define SizeOfINDEXREGISTER 10
 #define maxTestCases 15
+#define maxRegisters 13
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,7 +29,13 @@ typedef struct s_Register {
     char Genre[50];
 } REGISTER;
 
+typedef struct s_IndexRegister {
+    char Id[5];
+    int rrn;
+} INDEXREGISTER;
+
 #include "code/util.c"
+#include "code/insert.c"
 
 // FILE * readPositions();
 

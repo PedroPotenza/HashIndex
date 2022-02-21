@@ -1,5 +1,29 @@
 #include "../header.h"
 
+void inicializer() {
+
+    if(!(access("Registers.bin", F_OK ) == 0)) //se Registers.bin não existir
+    {
+        FILE* file = fopen("Registers.bin", "w+b");
+        fclose(file);
+    } 
+    
+    if(access("Index.bin", F_OK ) == 0) 
+    {
+        return;
+    } 
+    else 
+    {
+        FILE* file = fopen("Index.bin", "w+b");
+        char underline = '_';
+        for (int i = 0; i < maxRegisters * SizeOfINDEXREGISTER; i++)
+        {
+            fwrite(&underline, sizeof(char), 1, file);
+        }
+	    fclose(file);
+    }
+}
+
 FILE * fileOpenRead(char * filename) {
 	FILE *file = fopen(filename, "rb");
 	
@@ -30,6 +54,8 @@ void reset() {
     remove("Positions.bin");
     remove("Registers.bin");
     printf("Arquivos resetados!\n");
+
+    inicializer();
     
     inserted = 0;
     searched = 0;
@@ -78,5 +104,16 @@ void getTestCase(REGISTER* insertData, KEY* searchData, KEY* removeData)
     file = fileOpenRead("CasoDeTeste/remove.bin");
     fread(removeData, sizeof(KEY), maxTestCases, file);
     fclose(file);
+
+}
+
+int getNewRRN() {
+
+    FILE* file = fopen("Registers.bin", "r+b");
+    fseek(file, 0, SEEK_END);
+
+    int adress = ftell(file);
+
+    return adress/SizeOfREGISTER;
 
 }

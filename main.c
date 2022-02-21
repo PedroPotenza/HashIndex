@@ -15,6 +15,8 @@ int main(int argc, char const *argv[])
     getTestCase(insertData, searchData, removeData);
     readPositions();
 
+    inicializer();
+
     printf("\n---------- Contador Inicial ----------\n");
     printf("Registros inseridos: %d\n", inserted);
     printf("Buscas efetuadas: %d\n", searched);
@@ -38,7 +40,7 @@ int main(int argc, char const *argv[])
         {
         case 1:
 
-            // insertRegister(insertData[inseridos]);
+            insert(insertData[inserted]);
             // printf("Id Cliente: %s\n", insertData[inserted].Id.ClientId);
             // printf("Id Filme: %s\n", insertData[inserted].Id.MovieId);
             // printf("Nome Cliente: %s\n", insertData[inserted].ClientName);
