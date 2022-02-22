@@ -2,12 +2,6 @@
 
 void inicializer() {
 
-    if(!(access("Registers.bin", F_OK ) == 0)) //se Registers.bin não existir
-    {
-        FILE* file = fopen("Registers.bin", "w+b");
-        fclose(file);
-    } 
-    
     if(access("Index.bin", F_OK ) == 0) 
     {
         return;
@@ -52,7 +46,8 @@ void reset() {
     
     remove("Index.bin");
     remove("Positions.bin");
-    remove("Registers.bin");
+    FILE* file = fopen("Registers.bin", "w+b");
+    fclose(file);
     printf("Arquivos resetados!\n");
 
     inicializer();

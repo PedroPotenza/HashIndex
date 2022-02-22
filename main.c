@@ -56,6 +56,7 @@ int main(int argc, char const *argv[])
             
             // printf("Id Cliente: %s\n", removeData[removed].ClientId);
             // printf("Id Filme: %s\n", removeData[removed].MovieId);
+            removeIndex(removeData[removed]);
 
             removed++;
             savePosition();
@@ -66,6 +67,7 @@ int main(int argc, char const *argv[])
             
             // printf("Id Cliente: %s\n", searchData[searched].ClientId);
             // printf("Id Filme: %s\n", searchData[searched].MovieId);
+            search(searchData[searched]);
 
             searched++;
             savePosition();

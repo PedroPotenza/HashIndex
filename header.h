@@ -4,7 +4,7 @@
 #define true 1
 #define false 0
 #define SizeOfREGISTER 156
-#define SizeOfINDEXREGISTER 10
+#define SizeOfINDEXREGISTER 9
 #define maxTestCases 15
 #define maxRegisters 13
 
@@ -36,6 +36,8 @@ typedef struct s_IndexRegister {
 
 #include "code/util.c"
 #include "code/insert.c"
+#include "code/remove.c"
+#include "code/search.c"
 
 // FILE * readPositions();
 
