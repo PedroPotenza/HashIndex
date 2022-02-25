@@ -53,10 +53,19 @@ void insert(REGISTER registerData) {
 
             printf("Colisao\n");
 
+            
+
             int trying = true;
             int existRemovedInTheStack = false;
             int saveTryNumber = 0;
+            int rotate = false;
             fseek(fileIndex, -1, SEEK_CUR);
+
+            if(rrnIndex == 12) {
+                rotate = true;
+                fseek(fileIndex, 0, SEEK_SET);
+                trys++;
+            }
 
             while(trying) {
     
@@ -83,7 +92,11 @@ void insert(REGISTER registerData) {
                 if(keyLocal[0] == '_'){
 
                     if(existRemovedInTheStack == true){
-                        fseek(fileIndex, (rrnIndex + saveTryNumber) * SizeOfINDEXREGISTER, SEEK_SET);
+                        
+                        if(rotate)
+                            fseek(fileIndex, (saveTryNumber-1) * SizeOfINDEXREGISTER, SEEK_SET);
+                        else
+                            fseek(fileIndex, (rrnIndex + saveTryNumber) * SizeOfINDEXREGISTER, SEEK_SET);
                     } else {
                         fseek(fileIndex, -5, SEEK_CUR);
                     }
@@ -94,7 +107,13 @@ void insert(REGISTER registerData) {
                     written = true;
 
                     printf("Chave %s inserida com sucesso!\n", keyString);
-                    printf("Endereco no Index: %d\n", rrnIndex);
+                    if(rotate)
+                        if(existRemovedInTheStack)
+                            printf("Endereco no Index: %d\n", saveTryNumber-1);
+                        else 
+                            printf("Endereco no Index: %d\n", trys-2);
+                    else
+                        printf("Endereco no Index: %d\n", rrnIndex+(trys-1));
                     printf("RRN da Chave no arquivo registros: %d\n", newRRN);
                    
                    if(existRemovedInTheStack == true) { 

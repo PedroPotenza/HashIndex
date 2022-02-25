@@ -15,7 +15,8 @@ void removeIndex(KEY removeData) {
     int done = false;
     char keyLocal[5];
     char removeMark = '*';
-
+    int try = 0;
+    
     do {
 
         fread(&keyLocal, sizeof(char), 5, file);
@@ -54,6 +55,13 @@ void removeIndex(KEY removeData) {
         } 
 
         fseek(file, sizeof(int), SEEK_CUR);
+
+        if(rrnIndex == 12) {
+            fseek(file, try*SizeOfINDEXREGISTER, SEEK_SET);
+        }
+
+        try++;
+
     } while (!done);
 
     fclose(file);

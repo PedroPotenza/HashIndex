@@ -39,13 +39,16 @@ void search(KEY searchData) {
     char keyLocal[5];
     int done = false;
     int try = 0;
+    int rotate = false;
 
     do {
         
         fread(&keyLocal, sizeof(char), 5, file);
 
         if(keyLocal[0] == '*') { 
-            fseek(file, SizeOfINDEXREGISTER-5, SEEK_CUR);    
+            fseek(file, SizeOfINDEXREGISTER-5, SEEK_CUR);
+            try++;
+            continue;    
         }
 
         if(keyLocal[0] == '_') {
@@ -65,8 +68,10 @@ void search(KEY searchData) {
 
         if(strcmp(keyLocal, keyString) == 0){
 
-                
-            printf("Chave %s encontrada, endereco %d, %d acessos!\n", keyString, rrnIndex+try, try);
+            if(rotate == true)
+                printf("Chave %s encontrada, endereco %d, %d acessos!\n", keyString, try-1, try);
+            else 
+                printf("Chave %s encontrada, endereco %d, %d acessos!\n", keyString, rrnIndex+try, try);
             int rrn; 
             fread(&rrn, sizeof(int), 1, file);
             printRegister(rrn);
@@ -76,6 +81,11 @@ void search(KEY searchData) {
         } 
 
         fseek(file, sizeof(int), SEEK_CUR);
+
+        if(rrnIndex == 12) {
+            fseek(file, try*SizeOfINDEXREGISTER, SEEK_SET);
+            rotate = true;
+        }
         try++;
     } while (!done);
 
